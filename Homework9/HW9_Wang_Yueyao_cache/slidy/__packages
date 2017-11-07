@@ -1,0 +1,14 @@
+base
+ggplot2
+ggExtra
+MASS
+dplyr
+tidyr
+tidytext
+janeaustenr
+stringr
+gutenbergr
+scales
+RColorBrewer
+wordcloud
+feather

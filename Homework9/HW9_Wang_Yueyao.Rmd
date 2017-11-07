@@ -1,0 +1,71 @@
+---
+title: "Homework 9"
+author: "Yueyao Wang"
+date: '`r Sys.Date()`'
+output:
+  slidy_presentation: default
+  ioslides_presentation:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 4
+    smaller: yes
+  beamer_presentation: default
+---
+
+```{r misc_function, eval=T, echo=F, warnings=F}
+
+    rm(list = ls())   
+    graphics.off()
+    options(scipen = 4, digits = 6)
+    options(stringsAsFactors = FALSE)
+    knitr::opts_chunk$set(echo = T, eval=T, cache=T, tidy.opts=list(width.cutoff=53),
+                tidy=T, message=F, warning=F,fig.align = 'center')
+
+
+```
+
+### Alice Example
+In this homework, I knit the example alice.py from "https://github.com/amueller/word_cloud/tree/master/examples"  
+I made some changes since the original code kept give me error. I changed the variable d to the absolute directory and delete the first line of "alice.txt" file since I can't read it in.  
+
+### Code
+```{python echo=T, eval=T, include=T, engine.path="/Users/yueyaowang/anaconda/bin/python"}
+#!/usr/bin/env python
+from os import path
+from PIL import Image
+import numpy as np
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud, STOPWORDS
+
+d = "/Users/yueyaowang/Documents/VT/2017Fall/stat-package/Package_Homework/Package_Homework/Homework9"
+# Read the whole text.
+text = open(path.join(d, "alice.txt")).read()
+# read the mask image
+# taken from
+# http://www.stencilry.org/stencils/movies/alice%20in%20wonderland/255fk.jpg
+alice_mask = np.array(Image.open(path.join(d, "alice_mask.png")))
+
+stopwords = set(STOPWORDS)
+stopwords.add("said")
+
+wc = WordCloud(background_color="white", max_words=2000, mask=alice_mask,
+               stopwords=stopwords)
+# generate word cloud
+wc.generate(text)
+
+# store to file
+wc.to_file(path.join(d, "alice.png"))
+
+```
+
+### WordCould from Python Code
+```{r, out.height="650px",out.width="600px",eval=T, echo=F, include=T}
+    knitr::include_graphics("alice.png")
+```
+
+
+
+
+
+
+
